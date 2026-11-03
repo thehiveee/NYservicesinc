@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Air conditioning — NY HVAC Services</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=Barlow:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --page: #FFFFFF;
+      --surface: #FFFFFF;
+      --surface-2: #F4F6F9;
+      --surface-3: #E7EBF1;
+      --line: #E0E5EC;
+      --ink: #0D1B2A;
+      --ink-mid: #30414F;
+      --ink-soft: #5C6B7A;
+      --tint-neutral: #E9EDF3;
+      --brand-accent: {{primaryOnLight}};
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --page: #0B1319;
+        --surface: #141D25;
+        --surface-2: #111A21;
+        --surface-3: #1D2831;
+        --line: rgba(255, 255, 255, .15);
+        --ink: #E9EDF1;
+        --ink-mid: #CFD7DE;
+        --ink-soft: #9EAAB5;
+        --tint-neutral: #202C36;
+        --brand-accent: {{primaryOnDark}};
+      }
+    }
+    :root[data-theme="dark"] {
+      --page: #0B1319;
+      --surface: #141D25;
+      --surface-2: #111A21;
+      --surface-3: #1D2831;
+      --line: rgba(255, 255, 255, .15);
+      --ink: #E9EDF1;
+      --ink-mid: #CFD7DE;
+      --ink-soft: #9EAAB5;
+      --tint-neutral: #202C36;
+      --brand-accent: {{primaryOnDark}};
+    }
+    body { margin: 0; background: var(--page); font-family: 'Barlow', -apple-system, 'Helvetica Neue', Arial, sans-serif; }
+    .pg { background: var(--page) !important; color: var(--ink) !important; }
+    .pg input::placeholder { color: var(--ink-soft); opacity: 1; }
+    h1, h2, h3 { font-family: 'Barlow Condensed', 'Roboto Condensed', 'Arial Narrow', 'Liberation Sans Narrow', 'Helvetica Neue Condensed', sans-serif; overflow-wrap: break-word; }
+    a { color: inherit; }
+    a:hover { color: inherit; }
+    /* Logo: the light-ink mark swaps in wherever the ground goes dark. */
+    .lg-swap .lg-dark { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .lg-swap .lg-light { display: none; }
+      :root:not([data-theme="light"]) .lg-swap .lg-dark { display: block; }
+    }
+    :root[data-theme="dark"] .lg-swap .lg-light { display: none; }
+    :root[data-theme="dark"] .lg-swap .lg-dark { display: block; }
+    @keyframes call-breathe {
+      0%, 100% { box-shadow: 0 0 0 0 var(--ring), 0 0 0 0 var(--ring); transform: scale(1); }
+      50% { box-shadow: 0 0 0 7px var(--ring), 0 0 22px 4px var(--ring); transform: scale(1.025); }
+    }
+    .call-breathe { animation: call-breathe 2.6s ease-in-out infinite; will-change: transform, box-shadow; }
+    .call-breathe:hover { animation-play-state: paused; }
+    /* Thermostat dial: swings cold -> hot -> settles at 70 */
+    @property --temp { syntax: '<integer>'; inherits: false; initial-value: 70; }
+    @keyframes dial-swing {
+      0% { transform: rotate(-112deg); }
+      30% { transform: rotate(112deg); }
+      54%, 90% { transform: rotate(0deg); }
+      100% { transform: rotate(-112deg); }
+    }
+    @keyframes dial-temp {
+      0% { --temp: 58; }
+      30% { --temp: 84; }
+      54%, 90% { --temp: 70; }
+      100% { --temp: 58; }
+    }
+    @keyframes dial-cold { 0%, 12% { opacity: 1; } 17%, 95% { opacity: 0; } 100% { opacity: 1; } }
+    @keyframes dial-hot { 0%, 13% { opacity: 0; } 19%, 36% { opacity: 1; } 42%, 100% { opacity: 0; } }
+    @keyframes dial-ok { 0%, 44% { opacity: 0; } 52%, 92% { opacity: 1; } 97%, 100% { opacity: 0; } }
+    .dial-needle { position: absolute; inset: 0; animation: dial-swing 8s cubic-bezier(.45,.05,.35,1) infinite; }
+    .dial-temp { animation: dial-temp 8s cubic-bezier(.45,.05,.35,1) infinite; counter-reset: t var(--temp); }
+    .dial-temp::after { content: counter(t) "°"; }
+    .dial-lbl { position: absolute; left: 0; right: 0; text-align: center; opacity: 0; }
+    .dial-lbl-cold { animation: dial-cold 8s linear infinite; }
+    .dial-lbl-hot { animation: dial-hot 8s linear infinite; }
+    .dial-lbl-ok { animation: dial-ok 8s linear infinite; }
+    @media (prefers-reduced-motion: reduce) {
+      .dial-needle, .dial-temp, .dial-lbl { animation: none; }
+      .dial-temp { --temp: 70; }
+      .dial-lbl-ok { opacity: 1; }
+      .call-breathe { animation: none; box-shadow: 0 0 0 5px var(--ring); }
+    }
+    /* The call button and hamburger menu are phone-only; the full nav shows at desktop width. */
+    .mobnav, .mobcall { display: none; }
+    /* Laptop widths where the hero is already two columns but the left one has
+       not yet reached its full width. */
+    @media (min-width: 1124px) and (max-width: 1359px) {
+      .pg #top h1 { font-size: calc(16.3vw - 95px) !important; }
+    }
+    /* Phone */
+    @media (max-width: 860px) {
+      .pg [style*="max-width: 1280px"] { padding-left: 16px !important; padding-right: 16px !important; }
+      .pg section > div, .pg footer > div { padding-top: 44px !important; padding-bottom: 44px !important; }
+      .pg [style*="grid-template-columns: repeat(4"],
+      .pg [style*="grid-template-columns: repeat(3"],
+      .pg [style*="grid-template-columns: repeat(2"] { grid-template-columns: minmax(0, 1fr) !important; }
+      .pg h1 { font-size: 38px !important; }
+      .pg h2 { font-size: 32px !important; }
+      .pg h3 { font-size: 24px !important; }
+      .pg [style*="letter-spacing: .34em"] { letter-spacing: .22em !important; }
+      /* Status strip: one tight line — the 30-year line and the phone only. */
+      .pg .statusbar > div { padding: 7px 16px !important; flex-wrap: nowrap !important; gap: 10px !important; font-size: 12.5px; }
+      .pg .statusbar .tail, .pg .statusbar a[href^="mailto:"] { display: none !important; }
+      .pg .statusbar strong, .pg .statusbar a { white-space: nowrap; }
+      .pg .statusbar a[href^="tel:"] { min-height: 30px !important; }
+      /* Masthead: call button, centred logo, menu button — pinned to the top. */
+      .pg header { position: sticky; top: 0; z-index: 50; }
+      .pg header .mast { flex-wrap: nowrap !important; justify-content: space-between !important; gap: 10px !important; padding: 10px 14px !important; }
+      .pg .nav-l, .pg .nav-r { display: none !important; }
+      .pg .brand { flex: 1 1 auto; min-width: 0; display: flex !important; justify-content: center; }
+      .pg .brand img { height: auto !important; width: 100% !important; max-width: 196px !important; }
+      .pg .mobcall { order: -1; box-sizing: border-box; display: grid; place-items: center; flex: none; width: 44px; height: 44px; min-height: 0; padding: 0 !important; border: 1.5px solid var(--line); border-radius: 5px; color: var(--ink); }
+      .pg .mobcall svg { width: 18px; height: 18px; }
+      .pg .mobnav { display: block; flex: none; }
+      .pg .mobnav > summary { box-sizing: border-box; list-style: none; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1.5px solid var(--line); border-radius: 5px; color: var(--ink); cursor: pointer; }
+      .pg .mobnav > summary::-webkit-details-marker { display: none; }
+      .pg .mobnav > summary span { display: none; }
+      .pg .mobnav > summary svg { flex: none; width: 19px; height: 19px; }
+      .pg .mobnav[open] > summary { background: var(--surface-2); }
+      .pg .mobnav-panel { position: absolute; left: 0; right: 0; top: 100%; z-index: 40; display: flex !important; flex-direction: column; gap: 0 !important; background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: 0 16px 32px rgba(0, 0, 0, .16); }
+      .pg .mobnav-panel a { display: block; min-height: 0; padding: 15px 16px !important; border-top: 1px solid var(--line); color: var(--ink); font-size: 16.5px; font-weight: 600; text-decoration: none; }
+      .pg .mobnav-panel a.mobnav-cta { color: var(--brand-accent); font-weight: 700; }
+      /* Hero: big stacked headline, full-width actions, trust points in a column. */
+      .pg #top > div { padding: 26px 16px 28px !important; gap: 26px !important; }
+      .pg .heroeyebrow { margin-bottom: 12px !important; font-size: 11.5px !important; letter-spacing: .18em !important; }
+      .pg #top h1 { font-size: min(76px, calc(16.4vw - 5px)) !important; line-height: .86 !important; letter-spacing: -.025em !important; }
+      .pg .herorule { width: 120px !important; height: 4px !important; margin-top: 18px !important; }
+      .pg .herolede { margin-top: 16px !important; font-size: 16.5px !important; line-height: 1.5 !important; }
+      .pg .herocta { flex-direction: column; flex-wrap: nowrap !important; gap: 10px !important; margin-top: 22px !important; }
+      .pg .herocta a { justify-content: center; text-align: center; padding: 18px 20px !important; font-size: 17px !important; }
+      .pg .herotrust { flex-direction: column; flex-wrap: nowrap !important; gap: 11px !important; margin-top: 22px !important; padding-top: 18px !important; font-size: 14.5px !important; }
+      /* Proof stats stay two-up rather than becoming a column of four. */
+      .pg .proof { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 22px 16px !important; padding: 28px 16px !important; }
+      .pg .proof b { font-size: min(34px, calc(8.3vw - 6px)) !important; overflow-wrap: anywhere; }
+      .pg .proof span { font-size: 13.5px; }
+      .pg [style*="font-size: 52px"], .pg [style*="font-size: 44px"] { font-size: 32px !important; }
+      .pg [style*="font-size: 21px"], .pg [style*="font-size: 20px"], .pg [style*="font-size: 19px"] { font-size: 17px !important; }
+      .pg [style*="font-size: 54px"] { font-size: 30px !important; }
+      .pg .pledge p { font-size: 22px !important; }
+      .pg [style*="padding: 44px"] { padding: 26px !important; }
+      .pg [style*="padding: 40px"] { padding: 24px !important; }
+      .pg [style*="padding: 36px"], .pg [style*="padding: 30px"] { padding: 22px !important; }
+      .pg [style*="padding: 18px 40px"] { padding: 14px 16px !important; }
+      /* Sticky bar: one compact row, buttons only */
+      .pg .stickybar { padding: 9px 12px !important; gap: 10px !important; flex-wrap: nowrap !important; }
+      .pg .stickybar p { display: none !important; }
+      .pg .stickybar > div { flex: 1 1 auto; gap: 10px !important; flex-wrap: nowrap !important; }
+      .pg .stickybar a { justify-content: center; text-align: center; white-space: nowrap; padding: 14px 8px !important; font-size: 14px !important; }
+      .pg .stickybar a.call-breathe { flex: 2 1 0; }
+      .pg .stickybar a:not(.call-breathe) { flex: 1 1 0; }
+      /* Comparison table: stacked cards instead of a sideways scroll */
+      .pg .cmp { min-width: 0 !important; display: block; }
+      .pg .cmp thead { display: none; }
+      .pg .cmp tbody, .pg .cmp tr, .pg .cmp th, .pg .cmp td { display: block; width: auto; }
+      .pg .cmp tr { border: 1px solid rgba(255,255,255,.18); border-radius: 6px; margin-bottom: 12px; overflow: hidden; }
+      .pg .cmp th[scope="row"] { padding: 15px 18px !important; font-size: 17px !important; border-bottom: 1px solid rgba(255,255,255,.14) !important; background: rgba(255,255,255,.03); }
+      .pg .cmp td { padding: 14px 18px !important; font-size: 15.5px !important; border-bottom: 0 !important; }
+      .pg .cmp td::before { content: attr(data-label); display: block; margin-bottom: 3px; font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #94A2AE; }
+      .pg .cmp td:last-child::before { color: {{primaryOnDark}}; }
+      .pg [style*="letter-spacing: .08em"] { font-size: 15px !important; gap: 22px !important; }
+      /* Photo grid stays 2-up so it doesn't become a mile of empty boxes */
+      .pg [style*="repeat(4, minmax(0, 1fr)); gap: 12px"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      /* Tap targets */
+      .pg a[href^="mailto:"], .pg a[href^="tel:"]:not(.call-breathe) { display: inline-flex; align-items: center; min-height: 40px; }
+      .pg footer ul { gap: 2px !important; }
+      .pg footer ul a { display: block; padding: 11px 0; }
+      .pg [style*="margin-top: 14px; font-weight: 700"] { padding: 8px 0; }
+      .pg [style*="gap: 64px"], .pg [style*="gap: 56px"] { gap: 36px !important; }
+      /* Booking panel: dial and heading stay side by side rather than leaving a
+         band of empty space beside a small graphic. */
+      .pg .dial, .pg .dial svg { width: 88px !important; height: 88px !important; }
+      .pg .dial .dial-temp { font-size: 26px !important; }
+      .pg .dial .dial-lblwrap { width: 60px !important; height: 11px !important; font-size: 8.5px !important; line-height: 11px !important; }
+      .pg #quote > div:first-child { padding: 22px 20px !important; gap: 16px !important; flex-wrap: nowrap !important; }
+      .pg #quote > div:first-child > div:last-child { flex: 1 1 0 !important; }
+      .pg #quote h3 { font-size: 21px !important; }
+      .pg #quote > div:first-child p { font-size: 14px !important; }
+      .pg .footlogo { max-width: 196px !important; height: auto !important; }
+      .pg .closelogo { max-width: 260px !important; height: auto !important; }
+    }
+    /* Narrow phones: the status strip tightens too. */
+    @media (max-width: 400px) {
+      .pg .statusbar > div { font-size: 11.5px; }
+    }
+    /* Smallest phones still in use (320px): tighten the masthead gutter. */
+    @media (max-width: 360px) {
+      .pg header .mast { padding: 9px 12px !important; gap: 8px !important; }
+      .pg .brand img { max-width: 160px !important; }
+    }
+  </style>
+</helmet>
+
+<div class="pg" style="width: 100%; background: var(--page); color: var(--ink); font-size: 17px; line-height: 1.6">
+
+  <!-- Status strip -->
+  <div class="statusbar" style="background: {{dark}}; color: #A7B4C0; font-size: 13.5px; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,.08)">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 10px 40px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <span style="width: 7px; height: 7px; border-radius: 50%; background: {{primaryOnDark}}; display: inline-block" aria-hidden="true"></span>
+        <strong style="color: #FFFFFF">Family owned in Brooklyn for nearly 30 years</strong>
+        <span class="tail">— and answering the phone 24 hours a day</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 20px"><a href="mailto:[EMAIL]" style="text-decoration: none">[EMAIL ADDRESS]</a>
+        <a href="tel:+17185512029" style="text-decoration: none; color: #FFFFFF; font-weight: 600">{{phone}}</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Masthead: logo centred -->
+  <header style="position: relative; background: var(--surface); border-bottom: 1px solid var(--line)">
+    <div class="mast" style="max-width: 1280px; margin: 0 auto; padding: 18px 40px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: center">
+      <nav class="nav-l" aria-label="Main" style="flex: 1 1 300px; display: flex; flex-wrap: wrap; gap: 26px; justify-content: flex-start; font-size: 15.5px; font-weight: 600; color: var(--ink)">
+        <a href="Heating.dc.html" style="text-decoration: none">Heating</a>
+        <a href="AirConditioning.dc.html" style="text-decoration: none; padding-bottom: 3px; border-bottom: 2px solid {{primary}}">Air conditioning</a>
+        <a href="Plumbing.dc.html" style="text-decoration: none">Plumbing</a>
+      </nav>
+      <a class="brand lg-swap" href="NYHVACServices.dc.html" aria-label="NY HVAC Services — home" style="flex: none; display: block; text-decoration: none">
+        <img class="lg-light" src="/_blob/8d207415a19d3d7a8982fb6d297ef543" alt="NY HVAC Services" style="height: 58px; width: auto; display: block">
+        <img class="lg-dark" src="/_blob/f7bc8f1261a409b0d3f3b2c18c9ffece" alt="NY HVAC Services" style="height: 58px; width: auto">
+      </a>
+      <div class="nav-r" style="flex: 1 1 300px; display: flex; flex-wrap: wrap; gap: 22px; align-items: center; justify-content: flex-end; font-size: 15.5px; font-weight: 600; color: var(--ink)">
+        <nav aria-label="More" style="display: flex; flex-wrap: wrap; gap: 22px">
+          <a href="Commercial.dc.html" style="text-decoration: none">Commercial</a>
+        <a href="Financing.dc.html" style="text-decoration: none">Financing</a>
+        <a href="About.dc.html" style="text-decoration: none">About</a>
+        </nav>
+        <a href="Contact.dc.html" style="display: inline-block; padding: 14px 20px; border: 1.5px solid var(--ink); border-radius: 4px; color: var(--ink); font-weight: 700; font-size: 15.5px; text-decoration: none">Book your service</a>
+      </div>
+      <a class="mobcall" href="tel:+17185512029" aria-label="Call {{phone}}">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"></path></svg>
+      </a>
+      <details class="mobnav">
+        <summary aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+          <span>Menu</span>
+        </summary>
+        <nav class="mobnav-panel" aria-label="Site">
+          <a href="NYHVACServices.dc.html">Home</a>
+          <a href="Heating.dc.html">Heating</a>
+          <a href="Plumbing.dc.html">Plumbing</a>
+          <a href="Commercial.dc.html">Commercial</a>
+          <a href="Financing.dc.html">Financing</a>
+          <a href="About.dc.html">About</a>
+          <a href="Coupons.dc.html">Coupons</a>
+          <a href="Maintenance.dc.html">Maintenance program</a>
+          <a href="Contact.dc.html">Contact</a>
+          <a href="Contact.dc.html" class="mobnav-cta">Book your service</a>
+        </nav>
+      </details>
+    </div>
+  </header>
+
+  <nav aria-label="Breadcrumb" style="border-bottom: 1px solid var(--line); background: var(--surface-2)">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 14px 40px; font-size: 14.5px; font-weight: 600; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+      <a href="NYHVACServices.dc.html" style="text-decoration: none">Home</a>
+      <span aria-hidden="true">/</span>
+      <span style="color: var(--ink)">Air conditioning</span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="top" style="background: {{dark}}; color: #FFFFFF">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 72px 40px 84px; display: flex; flex-wrap: wrap; gap: 64px; align-items: start">
+      <div style="flex: 999 1 540px; min-width: 0">
+        <p class="heroeyebrow" style="margin: 0 0 22px; font-size: 14px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #A7B4C0">Air conditioning · Brooklyn, Queens &amp; Manhattan</p>
+        <h1 style="margin: 0; font-weight: 800; font-size: 104px; line-height: .86; letter-spacing: -.005em; text-transform: uppercase">
+          <span style="display: block">Cold air.</span>
+          <span style="display: block; color: {{secondaryOnDark}}">Fast.</span>
+        </h1>
+        <div class="herorule" style="display: flex; width: 200px; height: 5px; margin-top: 30px" aria-hidden="true">
+          <span style="flex: 1; background: {{secondary}}"></span>
+          <span style="flex: 1; background: {{primary}}"></span>
+        </div>
+        <p class="herolede" style="margin: 26px 0 0; font-size: 20px; line-height: 1.55; color: #CBD4DD; max-width: 52ch">When the AC quits in a July heat wave, every company in the city is booked. We answer around the clock and we work on every major brand — so the answer is never "we do not touch that one".</p>
+        <div class="herocta" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px">
+          <a href="tel:+17185512029" class="call-breathe" style="--ring: {{ringColor}}; display: inline-flex; align-items: center; gap: 10px; padding: 19px 28px; border-radius: 4px; background: {{primaryDeep}}; color: #FFFFFF; font-weight: 700; font-size: 17px; text-decoration: none">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width: 19px; height: 19px"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"></path></svg>
+            Call {{phone}}
+          </a>
+          <a href="Contact.dc.html" style="display: inline-block; padding: 19px 28px; border: 1px solid rgba(255,255,255,.4); border-radius: 4px; color: #FFFFFF; font-weight: 700; font-size: 17px; text-decoration: none">Book an AC visit</a>
+        </div>
+      </div>
+      <div style="flex: 1 1 360px; min-width: 0; border: 1px solid rgba(255,255,255,.14); border-radius: 6px; overflow: hidden; background: {{panelDark}}">
+        <h2 style="margin: 0; padding: 20px 22px; font-size: 15px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #FFFFFF; border-bottom: 1px solid rgba(255,255,255,.12)">What you get, either way</h2>
+        <div style="display: flex; gap: 13px; align-items: start; padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,.12)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="{{primaryOnDark}}" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" style="flex: none; width: 19px; height: 19px; margin-top: 3px"><path d="M4.5 12.5 9.5 17.5 19.5 7"></path></svg>
+          <span style="font-size: 16px; color: #CBD4DD"><strong style="color: #FFFFFF; display: block; font-size: 17px">24-hour emergency service</strong>Cooling failures answered through the heat wave, any hour.</span>
+        </div>
+        <div style="display: flex; gap: 13px; align-items: start; padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,.12)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="{{primaryOnDark}}" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" style="flex: none; width: 19px; height: 19px; margin-top: 3px"><path d="M4.5 12.5 9.5 17.5 19.5 7"></path></svg>
+          <span style="font-size: 16px; color: #CBD4DD"><strong style="color: #FFFFFF; display: block; font-size: 17px">Every brand serviced</strong>Central, ductless, window and through-the-wall, whoever made it.</span>
+        </div>
+        <div style="display: flex; gap: 13px; align-items: start; padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,.12)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="{{primaryOnDark}}" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" style="flex: none; width: 19px; height: 19px; margin-top: 3px"><path d="M4.5 12.5 9.5 17.5 19.5 7"></path></svg>
+          <span style="font-size: 16px; color: #CBD4DD"><strong style="color: #FFFFFF; display: block; font-size: 17px">Repair or replace, told straight</strong>We will say when a unit has years left rather than sell you a new one.</span>
+        </div>
+        <div style="display: flex; gap: 13px; align-items: start; padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,.12)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="{{primaryOnDark}}" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" style="flex: none; width: 19px; height: 19px; margin-top: 3px"><path d="M4.5 12.5 9.5 17.5 19.5 7"></path></svg>
+          <span style="font-size: 16px; color: #CBD4DD"><strong style="color: #FFFFFF; display: block; font-size: 17px">Financing on replacements</strong>No-interest and low-monthly options, decided online in minutes.</span>
+        </div>
+        <div style="padding: 20px 22px">
+          <a href="Contact.dc.html" style="display: block; text-align: center; padding: 15px 20px; border-radius: 4px; background: {{primaryDeep}}; color: #FFFFFF; font-weight: 700; font-size: 16px; text-decoration: none">Get a free estimate</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" style="border-bottom: 1px solid var(--line)">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 88px 40px">
+      <div style="max-width: 64ch">
+        <p style="margin: 0 0 14px; font-size: 14px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: {{primaryOnLight}}">Cooling services</p>
+        <h2 style="margin: 0; font-size: 68px; font-weight: 800; line-height: .92; text-transform: uppercase; text-wrap: balance">Cold, quiet, and running all summer.</h2>
+        <p style="margin: 20px 0 0; font-size: 19px; color: var(--ink-soft); line-height: 1.55">Repair, installation, replacement and seasonal maintenance for every kind of air conditioning a New York building throws at us.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 52px">
+        <div style="border: 1px solid var(--line); border-top: 4px solid {{secondary}}; border-radius: 6px; padding: 36px; display: flex; flex-direction: column">
+          <h3 style="margin: 0; font-size: 30px; font-weight: 700; line-height: 1.02; text-transform: uppercase">AC repair</h3>
+          <p style="margin: 10px 0 0; color: var(--ink-soft); font-size: 16.5px">Not cooling, leaking water, tripping breakers, icing up or running constantly without getting anywhere. Diagnosed on the spot.</p>
+          <a href="Contact.dc.html" style="display: inline-block; margin-top: auto; padding-top: 18px; font-weight: 700; font-size: 15.5px; color: {{primaryOnLight}}">Book an AC repair</a>
+        </div>
+        <div style="border: 1px solid var(--line); border-top: 4px solid {{secondary}}; border-radius: 6px; padding: 36px; display: flex; flex-direction: column">
+          <h3 style="margin: 0; font-size: 30px; font-weight: 700; line-height: 1.02; text-transform: uppercase">Emergency AC service</h3>
+          <p style="margin: 10px 0 0; color: var(--ink-soft); font-size: 16.5px">Around-the-clock dispatch during heat waves, when a failed system in an apartment with an elderly resident is an emergency.</p>
+          <a href="Contact.dc.html" style="display: inline-block; margin-top: auto; padding-top: 18px; font-weight: 700; font-size: 15.5px; color: {{primaryOnLight}}">Get someone out now</a>
+        </div>
+        <div style="border: 1px solid var(--line); border-top: 4px solid {{secondary}}; border-radius: 6px; padding: 36px; display: flex; flex-direction: column">
+          <h3 style="margin: 0; font-size: 30px; font-weight: 700; line-height: 1.02; text-transform: uppercase">Air conditioning installation</h3>
+          <p style="margin: 10px 0 0; color: var(--ink-soft); font-size: 16.5px">Central, ductless mini-split and through-the-wall systems, sized and engineered for the space before anything is ordered.</p>
+          <a href="Contact.dc.html" style="display: inline-block; margin-top: auto; padding-top: 18px; font-weight: 700; font-size: 15.5px; color: {{primaryOnLight}}">Plan an installation</a>
+        </div>
+        <div style="border: 1px solid var(--line); border-top: 4px solid {{secondary}}; border-radius: 6px; padding: 36px; display: flex; flex-direction: column">
+          <h3 style="margin: 0; font-size: 30px; font-weight: 700; line-height: 1.02; text-transform: uppercase">Full AC replacement</h3>
+          <p style="margin: 10px 0 0; color: var(--ink-soft); font-size: 16.5px">When repair stops being the better buy, we say so — and show you the running-cost difference rather than just the price.</p>
+          <a href="Contact.dc.html" style="display: inline-block; margin-top: auto; padding-top: 18px; font-weight: 700; font-size: 15.5px; color: {{primaryOnLight}}">Price a replacement</a>
+        </div>
+        <div style="border: 1px solid var(--line); border-top: 4px solid {{secondary}}; border-radius: 6px; padding: 36px; display: flex; flex-direction: column">
+          <h3 style="margin: 0; font-size: 30px; font-weight: 700; line-height: 1.02; text-transform: uppercase">Maintenance &amp; tune-ups</h3>
+          <p style="margin: 10px 0 0; color: var(--ink-soft); font-size: 16.5px">Coils, filters, drains, refrigerant levels and electrical connections checked so the system is not discovering problems in August.</p>
+          <a href="Contact.dc.html" style="display: inline-block; margin-top: auto; padding-top: 18px; font-weight: 700; font-size: 15.5px; color: {{primaryOnLight}}">Book a tune-up</a>
+        </div>
+        <div style="border: 1px solid var(--line); border-top: 4px solid {{secondary}}; border-radius: 6px; padding: 36px; display: flex; flex-direction: column">
+          <h3 style="margin: 0; font-size: 30px; font-weight: 700; line-height: 1.02; text-transform: uppercase">Spring pre-season clean</h3>
+          <p style="margin: 10px 0 0; color: var(--ink-soft); font-size: 16.5px">Booked before the first hot day, when we can still get to you the same week rather than the following one.</p>
+          <a href="Contact.dc.html" style="display: inline-block; margin-top: auto; padding-top: 18px; font-weight: 700; font-size: 15.5px; color: {{primaryOnLight}}">Book a spring clean</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--surface-2); border-bottom: 1px solid var(--line)">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 88px 40px">
+      <div style="max-width: 62ch">
+        <h2 style="margin: 0; font-size: 60px; font-weight: 800; line-height: .94; text-transform: uppercase; text-wrap: balance">Four things worth a call before June.</h2>
+        <p style="margin: 18px 0 0; font-size: 18px; color: var(--ink-soft)">Cooling problems are cheapest in April. These are the signs that the system will not make it through a heat wave.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; margin-top: 46px">
+        <div style="border-top: 2px solid {{secondary}}; padding-top: 20px">
+          <b style="display: block; font-family: 'Barlow Condensed', 'Roboto Condensed', 'Arial Narrow', sans-serif; font-size: 44px; font-weight: 800; line-height: 1; color: {{secondaryOnLight}}">01</b>
+          <h3 style="margin: 12px 0 0; font-size: 26px; font-weight: 700; text-transform: uppercase">It runs but barely cools</h3>
+          <p style="margin: 6px 0 0; color: var(--ink-soft); font-size: 16px">Usually refrigerant or airflow. Both get worse, and one of them is a leak.</p>
+        </div>
+        <div style="border-top: 2px solid {{secondary}}; padding-top: 20px">
+          <b style="display: block; font-family: 'Barlow Condensed', 'Roboto Condensed', 'Arial Narrow', sans-serif; font-size: 44px; font-weight: 800; line-height: 1; color: {{secondaryOnLight}}">02</b>
+          <h3 style="margin: 12px 0 0; font-size: 26px; font-weight: 700; text-transform: uppercase">Water where it should not be</h3>
+          <p style="margin: 6px 0 0; color: var(--ink-soft); font-size: 16px">A blocked condensate drain floods ceilings. It is a small job until it is not.</p>
+        </div>
+        <div style="border-top: 2px solid {{secondary}}; padding-top: 20px">
+          <b style="display: block; font-family: 'Barlow Condensed', 'Roboto Condensed', 'Arial Narrow', sans-serif; font-size: 44px; font-weight: 800; line-height: 1; color: {{secondaryOnLight}}">03</b>
+          <h3 style="margin: 12px 0 0; font-size: 26px; font-weight: 700; text-transform: uppercase">It smells when it starts</h3>
+          <p style="margin: 6px 0 0; color: var(--ink-soft); font-size: 16px">Microbial growth on the coil, which is an air-quality problem as much as a comfort one.</p>
+        </div>
+        <div style="border-top: 2px solid {{secondary}}; padding-top: 20px">
+          <b style="display: block; font-family: 'Barlow Condensed', 'Roboto Condensed', 'Arial Narrow', sans-serif; font-size: 44px; font-weight: 800; line-height: 1; color: {{secondaryOnLight}}">04</b>
+          <h3 style="margin: 12px 0 0; font-size: 26px; font-weight: 700; text-transform: uppercase">It is over ten years old</h3>
+          <p style="margin: 6px 0 0; color: var(--ink-soft); font-size: 16px">Not a reason to replace it — but a reason to have it looked at before the season.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pledge" style="border-bottom: 1px solid var(--line)">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 80px 40px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+      <div style="flex: 999 1 560px; min-width: 0">
+        <p style="margin: 0 0 16px; font-size: 14px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: {{primaryOnLight}}">Our promise</p>
+        <p style="margin: 0; font-family: 'Barlow Condensed', 'Roboto Condensed', 'Arial Narrow', sans-serif; font-size: 42px; font-weight: 700; line-height: 1.08; text-wrap: balance; color: var(--ink)">“We will never recommend a product or service that we would not recommend for our own families.”</p>
+        <p style="margin: 20px 0 0; font-size: 17px; color: var(--ink-soft); max-width: 62ch">Which is why you will hear “this has a few years left in it” as often as you hear “this needs replacing” — and why, if something is not right afterwards, we will not rest until we have made it right.</p>
+      </div>
+      <div style="flex: 1 1 300px; min-width: 0">
+        <a href="About.dc.html" style="display: inline-block; padding: 16px 24px; border: 1.5px solid var(--ink); border-radius: 4px; color: var(--ink); font-weight: 700; font-size: 16px; text-decoration: none">Meet the family behind it</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-bottom: 1px solid var(--line)">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 80px 40px">
+      <h2 style="margin: 0 0 36px; font-size: 44px; font-weight: 800; line-height: 1; text-transform: uppercase">While we're here</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+        <a href="Heating.dc.html" style="display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 6px; padding: 30px; text-decoration: none">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 700; line-height: 1.04; text-transform: uppercase">Heating</h3>
+          <p style="margin: 8px 0 0; color: var(--ink-soft); font-size: 16px">Furnaces, boilers and heaters, by the same crew.</p>
+          <span aria-hidden="true" style="margin-top: 16px; font-weight: 700; color: {{primaryOnLight}}">→</span>
+        </a>
+        <a href="Maintenance.dc.html" style="display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 6px; padding: 30px; text-decoration: none">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 700; line-height: 1.04; text-transform: uppercase">Maintenance program</h3>
+          <p style="margin: 8px 0 0; color: var(--ink-soft); font-size: 16px">Seasonal service on the cooling and the heating.</p>
+          <span aria-hidden="true" style="margin-top: 16px; font-weight: 700; color: {{primaryOnLight}}">→</span>
+        </a>
+        <a href="Coupons.dc.html" style="display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 6px; padding: 30px; text-decoration: none">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 700; line-height: 1.04; text-transform: uppercase">Coupons</h3>
+          <p style="margin: 8px 0 0; color: var(--ink-soft); font-size: 16px">Current offers on service calls and installations.</p>
+          <span aria-hidden="true" style="margin-top: 16px; font-weight: 700; color: {{primaryOnLight}}">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--surface-2); color: var(--ink)">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 92px 40px; text-align: center; display: flex; flex-direction: column; align-items: center">
+      <span class="lg-swap" style="display: block">
+        <img class="lg-light closelogo" src="/_blob/8d207415a19d3d7a8982fb6d297ef543" alt="NY HVAC Services" style="height: 56px; width: auto; display: block">
+        <img class="lg-dark closelogo" src="/_blob/f7bc8f1261a409b0d3f3b2c18c9ffece" alt="NY HVAC Services" style="height: 56px; width: auto">
+      </span>
+      <h2 style="margin: 30px 0 0; font-size: 78px; font-weight: 800; line-height: .9; text-transform: uppercase; text-wrap: balance">Not cooling? Call now.</h2>
+      <p style="margin: 20px auto 0; font-size: 19px; color: var(--ink-soft); max-width: 52ch">A person answers 24 hours a day, and we work on every major brand of air conditioner.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px">
+        <a href="tel:+17185512029" class="call-breathe" style="--ring: {{ringColor}}; display: inline-block; padding: 19px 30px; border-radius: 4px; background: {{primaryDeep}}; color: #FFFFFF; font-weight: 700; font-size: 17px; text-decoration: none">Call {{phone}}</a>
+        <a href="Contact.dc.html" style="display: inline-block; padding: 19px 30px; border: 1.5px solid var(--ink); border-radius: 4px; color: var(--ink); font-weight: 700; font-size: 17px; text-decoration: none">Get a free estimate</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background: var(--surface); color: var(--ink-soft); border-top: 1px solid var(--line)">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 64px 40px 40px">
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px">
+        <div>
+          <span class="lg-swap" style="display: block">
+            <img class="lg-light footlogo" src="/_blob/8d207415a19d3d7a8982fb6d297ef543" alt="NY HVAC Services" style="height: 44px; width: auto; display: block">
+            <img class="lg-dark footlogo" src="/_blob/f7bc8f1261a409b0d3f3b2c18c9ffece" alt="NY HVAC Services" style="height: 44px; width: auto">
+          </span>
+          <p style="margin: 18px 0 0; font-size: 15px">Heating, cooling and plumbing for homes, buildings and businesses in Brooklyn, Queens and Manhattan. Family owned and operated for nearly thirty years.</p>
+        </div>
+        <div>
+          <h4 style="margin: 0; color: var(--ink); font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase">Services</h4>
+          <ul style="list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+            <li><a href="Heating.dc.html" style="text-decoration: none">Heating</a></li>
+            <li><a href="AirConditioning.dc.html" style="text-decoration: none">Air conditioning</a></li>
+            <li><a href="Plumbing.dc.html" style="text-decoration: none">Plumbing</a></li>
+            <li><a href="Commercial.dc.html" style="text-decoration: none">Commercial</a></li>
+            <li><a href="Maintenance.dc.html" style="text-decoration: none">Maintenance program</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="margin: 0; color: var(--ink); font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase">Company</h4>
+          <ul style="list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+            <li><a href="About.dc.html" style="text-decoration: none">About us</a></li>
+            <li><a href="Financing.dc.html" style="text-decoration: none">Financing</a></li>
+            <li><a href="Coupons.dc.html" style="text-decoration: none">Coupons</a></li>
+            <li><a href="Contact.dc.html" style="text-decoration: none">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="margin: 0; color: var(--ink); font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase">Contact</h4>
+          <ul style="list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+            <li><a href="tel:+17185512029" style="text-decoration: none; color: var(--ink); font-weight: 600">{{phone}}</a></li>
+            <li><a href="mailto:[EMAIL]" style="text-decoration: none">[EMAIL ADDRESS]</a></li>
+            <li>109 S 5th St, 1st Floor<br>Brooklyn, NY 11249</li>
+            <li style="color: {{primaryOnLight}}">Emergency service — 24 hours</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; font-size: 13.5px">
+        <span>© 2026 NY HVAC Services Inc · Brooklyn, NY</span>
+        <span>Privacy policy · Terms · Accessibility</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky call bar -->
+  <div class="stickybar" style="position: sticky; bottom: 0; z-index: 50; background: {{panelDark}}; color: #FFFFFF; border-top: 1px solid rgba(255,255,255,.08); box-shadow: 0 -12px 30px -12px rgba(0,0,0,.45); padding: 14px 40px; display: flex; flex-wrap: wrap; gap: 26px; align-items: center; justify-content: center">
+    <p style="margin: 0; font-size: 16px; color: #CBD4DD"><strong style="color: #FFFFFF">No heat, no cooling or a leak right now?</strong> A real person answers, 24 hours a day.</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px">
+      <a href="tel:+17185512029" class="call-breathe" style="--ring: {{ringColor}}; display: inline-flex; align-items: center; gap: 9px; padding: 15px 24px; border-radius: 4px; background: {{primaryDeep}}; color: #FFFFFF; font-weight: 700; font-size: 16px; text-decoration: none">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width: 17px; height: 17px"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"></path></svg>
+        Call {{phone}}
+      </a>
+      <a href="Contact.dc.html" style="display: inline-block; padding: 15px 24px; border: 1px solid rgba(255,255,255,.4); border-radius: 4px; color: #FFFFFF; font-weight: 700; font-size: 16px; text-decoration: none">Free estimate</a>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{
+  "phone": {"editor": "text", "default": "718-551-2029", "section": "Client"},
+  "primary": {"editor": "color", "default": "#ED1C24", "section": "Brand"},
+  "secondary": {"editor": "color", "default": "#346699", "section": "Brand"},
+  "dark": {"editor": "color", "default": "#0D1B2A", "section": "Brand"},
+  "$preview": {"width": 1440, "height": 4950}
+}'>
+class Component extends DCLogic {
+  shift(hex, amount) {
+    var m = /^#?([0-9a-f]{6})$/i.exec(String(hex || '').trim());
+    if (!m) return hex;
+    var n = parseInt(m[1], 16);
+    var parts = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(function (c) {
+      var v = amount >= 0 ? c + (255 - c) * amount : c * (1 + amount);
+      return Math.max(0, Math.min(255, Math.round(v)));
+    });
+    return '#' + parts.map(function (c) { return ('0' + c.toString(16)).slice(-2); }).join('');
+  }
+  rgba(hex, alpha) {
+    var m = /^#?([0-9a-f]{6})$/i.exec(String(hex || '').trim());
+    if (!m) return 'rgba(0,0,0,' + alpha + ')';
+    var n = parseInt(m[1], 16);
+    return 'rgba(' + [(n >> 16) & 255, (n >> 8) & 255, n & 255].join(',') + ',' + alpha + ')';
+  }
+
+  renderVals() {
+    var primary = this.props.primary ?? '#ED1C24';
+    var secondary = this.props.secondary ?? '#346699';
+    var dark = this.props.dark ?? '#0D1B2A';
+    return {
+      phone: this.props.phone ?? '718-551-2029',
+      dark: dark,
+      panelDark: this.shift(dark, 0.07),
+      footerDark: this.shift(dark, -0.35),
+      primary: primary,
+      secondary: secondary,
+      primaryDeep: this.shift(primary, -0.14),
+      primaryOnLight: this.shift(primary, -0.3),
+      primaryOnDark: this.shift(primary, 0.42),
+      secondaryOnLight: this.shift(secondary, -0.28),
+      secondaryOnDark: this.shift(secondary, 0.45),
+      ringColor: this.rgba(primary, 0.3)
+    };
+  }
+}
+</script>
+</body>
+</html>

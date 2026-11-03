@@ -1,0 +1,215 @@
+{
+  "attachments": {},
+  "boards": {
+    "About.dc.html": {
+      "expand": "fill",
+      "h": 4600,
+      "is_interactive": true,
+      "title": "NY HVAC — About",
+      "w": 1440,
+      "x": 0,
+      "y": 35380
+    },
+    "AirConditioning.dc.html": {
+      "expand": "fill",
+      "h": 4950,
+      "is_interactive": true,
+      "title": "NY HVAC — Air conditioning",
+      "w": 1440,
+      "x": 1520,
+      "y": 30310
+    },
+    "Chelsea.dc.html": {
+      "expand": "fill",
+      "h": 7000,
+      "is_interactive": true,
+      "title": "Chelsea HVAC — Landing page",
+      "w": 1440,
+      "x": 0,
+      "y": 6020
+    },
+    "ChelseaBrand.dc.html": {
+      "h": 1500,
+      "title": "Chelsea HVAC — Brand & messaging",
+      "w": 900,
+      "x": 1990,
+      "y": 6020
+    },
+    "ChelseaPhone.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Chelsea HVAC — Phone",
+      "w": 390,
+      "x": 1520,
+      "y": 6020
+    },
+    "Commercial.dc.html": {
+      "expand": "fill",
+      "h": 4700,
+      "is_interactive": true,
+      "title": "NY HVAC — Commercial",
+      "w": 1440,
+      "x": 4560,
+      "y": 30310
+    },
+    "Contact.dc.html": {
+      "expand": "fill",
+      "h": 3700,
+      "is_interactive": true,
+      "title": "NY HVAC — Contact",
+      "w": 1440,
+      "x": 6080,
+      "y": 35380
+    },
+    "Coupons.dc.html": {
+      "expand": "fill",
+      "h": 3800,
+      "is_interactive": true,
+      "title": "NY HVAC — Coupons",
+      "w": 1440,
+      "x": 3040,
+      "y": 35380
+    },
+    "Financing.dc.html": {
+      "expand": "fill",
+      "h": 4150,
+      "is_interactive": true,
+      "title": "NY HVAC — Financing",
+      "w": 1440,
+      "x": 1520,
+      "y": 35380
+    },
+    "Heating.dc.html": {
+      "expand": "fill",
+      "h": 4950,
+      "is_interactive": true,
+      "title": "NY HVAC — Heating",
+      "w": 1440,
+      "x": 0,
+      "y": 30310
+    },
+    "Maintenance.dc.html": {
+      "expand": "fill",
+      "h": 4150,
+      "is_interactive": true,
+      "title": "NY HVAC — Maintenance program",
+      "w": 1440,
+      "x": 4560,
+      "y": 35380
+    },
+    "NYCoolingHeating.dc.html": {
+      "expand": "fill",
+      "h": 7850,
+      "is_interactive": true,
+      "title": "New York Cooling & Heating — Landing page",
+      "w": 1440,
+      "x": 0,
+      "y": 13140
+    },
+    "NYCoolingHeatingPhone.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "New York Cooling & Heating — Phone",
+      "w": 390,
+      "x": 1520,
+      "y": 13140
+    },
+    "NYHVACServices.dc.html": {
+      "expand": "fill",
+      "h": 8600,
+      "is_interactive": true,
+      "title": "NY HVAC Services — Landing page",
+      "w": 1440,
+      "x": 0,
+      "y": 21110
+    },
+    "NYHVACServicesPhone.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "NY HVAC Services — Phone",
+      "w": 390,
+      "x": 1520,
+      "y": 21110
+    },
+    "Plumbing.dc.html": {
+      "expand": "fill",
+      "h": 4950,
+      "is_interactive": true,
+      "title": "NY HVAC — Plumbing",
+      "w": 1440,
+      "x": 3040,
+      "y": 30310
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-21T12:45:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "chelsea": {
+      "kind": "title1",
+      "maxW": 2890,
+      "text": "Chelsea HVAC Services — rebrand",
+      "w": 240,
+      "x": 0,
+      "y": 5720
+    },
+    "nycool": {
+      "kind": "title1",
+      "maxW": 2890,
+      "text": "New York Cooling & Heating Services — Chelsea template, their content and colours",
+      "w": 240,
+      "x": 0,
+      "y": 12840
+    },
+    "nyhvac": {
+      "kind": "title1",
+      "maxW": 2890,
+      "text": "NY HVAC Services Inc — Brooklyn, Queens, Manhattan · heating, cooling and plumbing",
+      "w": 240,
+      "x": 0,
+      "y": 20810
+    },
+    "nyhvacco": {
+      "kind": "title1",
+      "maxW": 7520,
+      "text": "NY HVAC Services — company, offers & contact",
+      "w": 240,
+      "x": 0,
+      "y": 35080
+    },
+    "nyhvacsvc": {
+      "kind": "title1",
+      "maxW": 6000,
+      "text": "NY HVAC Services — service pages",
+      "w": 240,
+      "x": 0,
+      "y": 30010
+    }
+  },
+  "order": [
+    "Chelsea.dc.html",
+    "ChelseaPhone.dc.html",
+    "ChelseaBrand.dc.html",
+    "NYCoolingHeating.dc.html",
+    "NYCoolingHeatingPhone.dc.html",
+    "NYHVACServices.dc.html",
+    "NYHVACServicesPhone.dc.html",
+    "Heating.dc.html",
+    "AirConditioning.dc.html",
+    "Plumbing.dc.html",
+    "Commercial.dc.html",
+    "About.dc.html",
+    "Financing.dc.html",
+    "Coupons.dc.html",
+    "Maintenance.dc.html",
+    "Contact.dc.html"
+  ],
+  "pages": [],
+  "title": "HVAC Site Template",
+  "v": 3
+}
