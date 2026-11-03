@@ -12,11 +12,15 @@ plumbing company operating in Brooklyn, Queens and Manhattan.
 ## Layout
 
 ```
-canvas/     Design-canvas artboards (.dc.html) — THE SOURCE OF TRUTH
+*.html      Generated static site, at the repo root — do not hand-edit
 assets/     Logo files (transparent PNG, light and dark variants)
-site/       Generated static site — do not hand-edit, it is overwritten
+canvas/     Design-canvas artboards (.dc.html) — THE SOURCE OF TRUTH
 tools/      Build scripts
 ```
+
+The pages sit at the repo root rather than in a subfolder so that any static
+host serves them with no configuration: Vercel, Netlify, Cloudflare Pages and
+GitHub Pages all look for `index.html` at the root of the branch.
 
 ### `canvas/` — source of truth
 
@@ -41,16 +45,26 @@ pages were laid out and where edits should continue to be made.
 Every page is responsive; the phone artboard is the same file at a narrower
 frame, not a separate mobile build.
 
-### `site/` — the deployable site
+### The site itself
 
-Plain HTML with no build step, no framework and no JavaScript. Ten pages,
-~40 KB each. Serve the repo root and open `site/index.html`, or point a host
-at `site/` and move `assets/` alongside it.
+Plain HTML at the repo root — no build step, no framework, no JavaScript. Ten
+pages, ~40 KB each: `index.html`, `heating.html`, `air-conditioning.html`,
+`plumbing.html`, `commercial.html`, `about.html`, `financing.html`,
+`coupons.html`, `maintenance.html`, `contact.html`.
 
 ```bash
-python3 tools/build_site.py      # regenerate site/ from canvas/
-python3 -m http.server 8000      # then open http://localhost:8000/site/
+python3 tools/build_site.py      # regenerate the pages from canvas/
+python3 -m http.server 8000      # then open http://localhost:8000/
 ```
+
+The `.html` files are generated. Edit `canvas/` and rebuild; a hand-edit to a
+page at the root is overwritten on the next build.
+
+### Deploying
+
+Connect the repo and deploy — there is nothing to configure. No build command,
+no output directory, no framework preset. If a host asks, the build command is
+empty and the output directory is the root.
 
 ### `tools/`
 
@@ -73,7 +87,7 @@ every page. Edit the chrome there rather than in eleven files.
 - resolves the brand tokens to literal colours
 - lifts `<helmet>` into `<head>` and unwraps `<x-dc>`
 - drops the runtime script and `support.js`
-- rewrites `/_blob/<id>` asset URLs to `../assets/*.png`
+- rewrites `/_blob/<id>` asset URLs to `assets/*.png`
 - rewrites `Page.dc.html` links to `page.html`
 - replaces the templated issue picker with CSS-only radio buttons
 - **drops the exit-intent pop-up**, which needs the canvas runtime's state

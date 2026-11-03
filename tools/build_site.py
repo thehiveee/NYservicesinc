@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the deployable static site in site/ from the canvas artboards in canvas/.
+"""Build the deployable static site at the repo root from the canvas artboards in canvas/.
 
 The canvas/*.dc.html files are the source of truth: they are Design Component
 artboards that run inside Claude's Design canvas. This script turns them into
@@ -8,7 +8,7 @@ plain HTML that any static host will serve:
   - resolves the {{token}} colour/brand holes to literal values
   - lifts <helmet> into <head> and unwraps <x-dc>
   - drops the Design runtime script block and ./support.js
-  - rewrites /_blob/<id> asset URLs to ../assets/*.png
+  - rewrites /_blob/<id> asset URLs to assets/*.png
   - rewrites Page.dc.html links to page.html
   - replaces the templated issue picker with CSS-only radio buttons
   - drops the exit-intent pop-up (see README)
@@ -22,7 +22,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 CANVAS = os.path.join(REPO, 'canvas')
-SITE = os.path.join(REPO, 'site')
+SITE = REPO  # the site is served from the repo root
 
 # ---------------------------------------------------------------- brand
 PHONE = '718-551-2029'
@@ -171,8 +171,8 @@ def convert(src):
     s = s.replace('<x-dc>', '').replace('</x-dc>', '')
 
     # 6. assets and inter-page links
-    s = s.replace(BLOB_LIGHT, '../assets/nyhvac-logo.png')
-    s = s.replace(BLOB_DARK, '../assets/nyhvac-logo-dark.png')
+    s = s.replace(BLOB_LIGHT, 'assets/nyhvac-logo.png')
+    s = s.replace(BLOB_DARK, 'assets/nyhvac-logo-dark.png')
     for a, b in LINKMAP.items():
         s = s.replace('href="' + a + '"', 'href="' + b + '"')
 
@@ -191,7 +191,7 @@ def main():
             '<title>' + title + '</title>\n'
             '<meta name="description" content="' + desc + '">\n'
             '<meta name="theme-color" content="' + DARK + '">\n'
-            '<link rel="icon" href="../assets/nyhvac-logo.png">\n'
+            '<link rel="icon" href="assets/nyhvac-logo.png">\n'
             + head_extra + '\n</head>\n<body>\n' + body + '\n</body>\n</html>\n')
 
         leftovers = re.findall(r'\{\{[^}]*\}\}|<sc-\w+|<x-dc|<helmet', html)
@@ -200,7 +200,7 @@ def main():
 
         open(os.path.join(SITE, out), 'w', encoding='utf-8').write(html)
         print('  %-24s %5d KB' % (out, len(html) // 1024))
-    print('built %d pages into site/' % len(PAGES))
+    print('built %d pages into the repo root' % len(PAGES))
 
 
 if __name__ == '__main__':
